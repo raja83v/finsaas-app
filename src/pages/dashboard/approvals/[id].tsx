@@ -54,6 +54,7 @@ import {
 } from "lucide-react";
 import { DocumentViewer } from "@/components/document/document-viewer";
 import { CommentThread } from "@/components/approval/comment-thread";
+import { LoanApplicationView } from "@/components/approval/loan-application-view";
 
 export default function ApprovalDetailPage() {
   const { id } = useParams();
@@ -488,149 +489,7 @@ export default function ApprovalDetailPage() {
 
             <div className="flex-1 overflow-auto p-4">
               <TabsContent value="details" className="mt-0 h-full">
-                <div className="space-y-6">
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg">
-                        Customer Information
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Name:</span>
-                          <span>{approvalItem.customer.name}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            Customer ID:
-                          </span>
-                          <span>{approvalItem.customer.id}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Phone:</span>
-                          <span>{approvalItem.customer.phone}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Email:</span>
-                          <span>{approvalItem.customer.email}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="w-full"
-                        asChild
-                      >
-                        <a
-                          href={`/dashboard/customers/${approvalItem.customer.id}`}
-                        >
-                          <User className="h-4 w-4 mr-2" />
-                          View Customer Profile
-                        </a>
-                      </Button>
-                    </CardFooter>
-                  </Card>
-
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg">Loan Details</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            Loan Type:
-                          </span>
-                          <span>{approvalItem.loanDetails.loanType}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Amount:</span>
-                          <span>{approvalItem.amount}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            Interest Rate:
-                          </span>
-                          <span>{approvalItem.loanDetails.interestRate}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Tenure:</span>
-                          <span>{approvalItem.loanDetails.tenure}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            EMI Amount:
-                          </span>
-                          <span>{approvalItem.loanDetails.emiAmount}</span>
-                        </div>
-                        <Separator />
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            Collateral Value:
-                          </span>
-                          <span>
-                            {approvalItem.loanDetails.collateralValue}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            LTV Ratio:
-                          </span>
-                          <span>{approvalItem.loanDetails.ltvRatio}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-
-                  <Card>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="text-lg">
-                        Approval Information
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Status:</span>
-                          <span>{getStatusBadge(approvalItem.status)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            Assigned To:
-                          </span>
-                          <span>{approvalItem.assignedTo}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">Priority:</span>
-                          <span>
-                            {approvalItem.priority === "high" ? (
-                              <Badge className="bg-red-100 text-red-800">
-                                High
-                              </Badge>
-                            ) : approvalItem.priority === "medium" ? (
-                              <Badge className="bg-yellow-100 text-yellow-800">
-                                Medium
-                              </Badge>
-                            ) : (
-                              <Badge className="bg-blue-100 text-blue-800">
-                                Low
-                              </Badge>
-                            )}
-                          </span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-sm font-medium">
-                            Submitted On:
-                          </span>
-                          <span>{approvalItem.submittedDate}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+                <LoanApplicationView application={approvalItem} />
               </TabsContent>
 
               <TabsContent value="documents" className="mt-0 h-full">

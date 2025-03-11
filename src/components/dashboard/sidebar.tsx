@@ -16,6 +16,7 @@ import {
   Menu,
   BarChart,
   Clock,
+  CheckCircle2,
 } from "lucide-react";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -42,6 +43,18 @@ export function Sidebar({
       title: "Gold Loans",
       icon: Coins,
       href: "/dashboard/loans",
+      variant: "ghost",
+    },
+    {
+      title: "Approvals",
+      icon: CheckCircle2,
+      href: "/dashboard/approvals",
+      variant: "ghost",
+    },
+    {
+      title: "Collateral",
+      icon: PiggyBank,
+      href: "/dashboard/collateral",
       variant: "ghost",
     },
     {

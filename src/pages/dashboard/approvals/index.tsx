@@ -45,7 +45,7 @@ import {
 } from "lucide-react";
 
 export default function ApprovalsPage() {
-  const [searchQuery, setSearchQuery] = useState(");
+  const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [typeFilter, setTypeFilter] = useState("all");
   const [dateFilter, setDateFilter] = useState("all");
@@ -107,9 +107,15 @@ export default function ApprovalsPage() {
   };
 
   return (
-    <div className="flex-1 space-y-4 p-4 md:p-8 pt-6" onKeyDown={handleKeyDown} tabIndex={0}>
+    <div
+      className="flex-1 space-y-4 p-4 md:p-8 pt-6"
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+    >
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">Approval Dashboard</h2>
+        <h2 className="text-3xl font-bold tracking-tight">
+          Approval Dashboard
+        </h2>
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm">
             <Bell className="mr-2 h-4 w-4" />
@@ -129,7 +135,9 @@ export default function ApprovalsPage() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Pending Approvals</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Pending Approvals
+            </CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -139,7 +147,9 @@ export default function ApprovalsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Approved Today</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Approved Today
+            </CardTitle>
             <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -149,7 +159,9 @@ export default function ApprovalsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Rejected Today</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Rejected Today
+            </CardTitle>
             <XCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -159,12 +171,16 @@ export default function ApprovalsPage() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Response Time</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Avg. Response Time
+            </CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">4.2h</div>
-            <p className="text-xs text-muted-foreground">-0.5h from last week</p>
+            <p className="text-xs text-muted-foreground">
+              -0.5h from last week
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -242,16 +258,20 @@ export default function ApprovalsPage() {
         <Tabs defaultValue="pending" className="space-y-4">
           <TabsList>
             <TabsTrigger value="pending">
-              Pending <Badge className="ml-2 bg-yellow-100 text-yellow-800">42</Badge>
+              Pending{" "}
+              <Badge className="ml-2 bg-yellow-100 text-yellow-800">42</Badge>
             </TabsTrigger>
             <TabsTrigger value="approved">
-              Approved <Badge className="ml-2 bg-green-100 text-green-800">156</Badge>
+              Approved{" "}
+              <Badge className="ml-2 bg-green-100 text-green-800">156</Badge>
             </TabsTrigger>
             <TabsTrigger value="rejected">
-              Rejected <Badge className="ml-2 bg-red-100 text-red-800">28</Badge>
+              Rejected{" "}
+              <Badge className="ml-2 bg-red-100 text-red-800">28</Badge>
             </TabsTrigger>
             <TabsTrigger value="needs_info">
-              Needs Info <Badge className="ml-2 bg-blue-100 text-blue-800">15</Badge>
+              Needs Info{" "}
+              <Badge className="ml-2 bg-blue-100 text-blue-800">15</Badge>
             </TabsTrigger>
           </TabsList>
 
@@ -322,7 +342,10 @@ export default function ApprovalsPage() {
                     priority: "medium",
                   },
                 ].map((item, i) => (
-                  <div key={i} className="grid grid-cols-8 p-4 items-center hover:bg-muted/50">
+                  <div
+                    key={i}
+                    className="grid grid-cols-8 p-4 items-center hover:bg-muted/50"
+                  >
                     <div className="font-medium">{item.id}</div>
                     <div>{item.type}</div>
                     <div>{item.customer}</div>
@@ -331,14 +354,16 @@ export default function ApprovalsPage() {
                     <div>
                       {getStatusBadge(item.status)}
                       {item.priority === "high" && (
-                        <Badge className="ml-2 bg-red-100 text-red-800">High Priority</Badge>
+                        <Badge className="ml-2 bg-red-100 text-red-800">
+                          High Priority
+                        </Badge>
                       )}
                     </div>
                     <div>{item.assignedTo}</div>
                     <div className="flex space-x-2">
                       <Button variant="ghost" size="sm" asChild>
                         <a href={`/dashboard/approvals/${item.id}`}>
-                          <Eye className="h-4 w-4 mr-1" /> View
+                          <Eye className="h-4 w-4 mr-1" /> View Details
                         </a>
                       </Button>
                       <DropdownMenu>
@@ -357,11 +382,13 @@ export default function ApprovalsPage() {
                             <ThumbsDown className="h-4 w-4 mr-2" /> Reject
                           </DropdownMenuItem>
                           <DropdownMenuItem>
-                            <MessageSquare className="h-4 w-4 mr-2" /> Request Info
+                            <MessageSquare className="h-4 w-4 mr-2" /> Request
+                            Info
                           </DropdownMenuItem>
                           <DropdownMenuSeparator />
                           <DropdownMenuItem>
-                            <Calendar className="h-4 w-4 mr-2" /> Schedule Review
+                            <Calendar className="h-4 w-4 mr-2" /> Schedule
+                            Review
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
@@ -446,7 +473,12 @@ export default function ApprovalsPage() {
                         <p className="text-xs text-muted-foreground">
                           by {item.approvedBy}
                         </p>
-                        <Button variant="ghost" size="sm" className="mt-1" asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="mt-1"
+                          asChild
+                        >
                           <a href={`/dashboard/approvals/${item.id}`}>
                             <Eye className="h-3 w-3 mr-1" /> View
                           </a>
