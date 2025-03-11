@@ -488,109 +488,115 @@ export default function ApprovalDetailPage() {
             </div>
 
             <div className="flex-1 overflow-auto p-4">
-              <TabsContent value="details" className="mt-0 h-full">
-                <LoanApplicationView application={approvalItem} />
-              </TabsContent>
+              <div>
+                {activeTab === "details" && (
+                  <div className="mt-0 h-full">
+                    <LoanApplicationView application={approvalItem} />
+                  </div>
+                )}
 
-              <TabsContent value="documents" className="mt-0 h-full">
-                <div className="space-y-4">
-                  {approvalItem.documents.map((doc, index) => (
-                    <Card key={index}>
-                      <CardContent className="p-4 flex justify-between items-center">
-                        <div className="flex items-center">
-                          <div className="mr-3 rounded-full bg-muted p-1.5">
-                            <FileText className="h-4 w-4 text-muted-foreground" />
+                {activeTab === "documents" && (
+                  <div className="mt-0 h-full space-y-4">
+                    {approvalItem.documents.map((doc, index) => (
+                      <Card key={index}>
+                        <CardContent className="p-4 flex justify-between items-center">
+                          <div className="flex items-center">
+                            <div className="mr-3 rounded-full bg-muted p-1.5">
+                              <FileText className="h-4 w-4 text-muted-foreground" />
+                            </div>
+                            <div>
+                              <p className="font-medium">{doc.name}</p>
+                              <p className="text-xs text-muted-foreground">
+                                {doc.type} • {doc.size} • Uploaded on{" "}
+                                {doc.uploadedOn}
+                              </p>
+                            </div>
                           </div>
-                          <div>
-                            <p className="font-medium">{doc.name}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {doc.type} • {doc.size} • Uploaded on{" "}
-                              {doc.uploadedOn}
-                            </p>
+                          <div className="flex items-center space-x-2">
+                            {getStatusBadge(doc.status)}
+                            <Button variant="ghost" size="sm">
+                              <Eye className="h-4 w-4 mr-1" /> View
+                            </Button>
+                            <Button variant="ghost" size="sm">
+                              <Download className="h-4 w-4" />
+                            </Button>
                           </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          {getStatusBadge(doc.status)}
-                          <Button variant="ghost" size="sm">
-                            <Eye className="h-4 w-4 mr-1" /> View
-                          </Button>
-                          <Button variant="ghost" size="sm">
-                            <Download className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                )}
 
-              <TabsContent value="collateral" className="mt-0 h-full">
-                <div className="space-y-4">
-                  {approvalItem.collateral.map((item, index) => (
-                    <Card key={index}>
+                {activeTab === "collateral" && (
+                  <div className="mt-0 h-full space-y-4">
+                    {approvalItem.collateral.map((item, index) => (
+                      <Card key={index}>
+                        <CardContent className="p-4">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h3 className="font-medium">{item.type}</h3>
+                              <p className="text-sm text-muted-foreground">
+                                Item Code: {item.itemCode}
+                              </p>
+                            </div>
+                            <Badge variant="outline">{item.purity}</Badge>
+                          </div>
+                          <div className="grid grid-cols-2 gap-4 mt-4">
+                            <div>
+                              <p className="text-sm text-muted-foreground">
+                                Weight
+                              </p>
+                              <p className="font-medium">{item.weight}</p>
+                            </div>
+                            <div>
+                              <p className="text-sm text-muted-foreground">
+                                Value
+                              </p>
+                              <p className="font-medium">{item.value}</p>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+
+                    <Card>
                       <CardContent className="p-4">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="font-medium">{item.type}</h3>
-                            <p className="text-sm text-muted-foreground">
-                              Item Code: {item.itemCode}
-                            </p>
-                          </div>
-                          <Badge variant="outline">{item.purity}</Badge>
-                        </div>
-                        <div className="grid grid-cols-2 gap-4 mt-4">
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Weight
-                            </p>
-                            <p className="font-medium">{item.weight}</p>
-                          </div>
-                          <div>
-                            <p className="text-sm text-muted-foreground">
-                              Value
-                            </p>
-                            <p className="font-medium">{item.value}</p>
-                          </div>
+                        <div className="flex justify-between items-center">
+                          <p className="font-medium">Total Collateral Value</p>
+                          <p className="font-medium">
+                            {approvalItem.loanDetails.collateralValue}
+                          </p>
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
+                  </div>
+                )}
 
-                  <Card>
-                    <CardContent className="p-4">
-                      <div className="flex justify-between items-center">
-                        <p className="font-medium">Total Collateral Value</p>
-                        <p className="font-medium">
-                          {approvalItem.loanDetails.collateralValue}
-                        </p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              </TabsContent>
-
-              <TabsContent value="timeline" className="mt-0 h-full">
-                <div className="relative pl-6 border-l-2 border-muted ml-4 space-y-8">
-                  {approvalItem.timeline.map((event, index) => (
-                    <div key={index} className="relative">
-                      <div className="absolute -left-[29px] p-1 rounded-full bg-primary">
-                        <div className="h-4 w-4 rounded-full bg-background"></div>
-                      </div>
-                      <div className="space-y-1">
-                        <p className="font-medium">{event.action}</p>
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <Clock className="h-3 w-3 mr-1" />
-                          <span>{event.timestamp}</span>
+                {activeTab === "timeline" && (
+                  <div className="mt-0 h-full">
+                    <div className="relative pl-6 border-l-2 border-muted ml-4 space-y-8">
+                      {approvalItem.timeline.map((event, index) => (
+                        <div key={index} className="relative">
+                          <div className="absolute -left-[29px] p-1 rounded-full bg-primary">
+                            <div className="h-4 w-4 rounded-full bg-background"></div>
+                          </div>
+                          <div className="space-y-1">
+                            <p className="font-medium">{event.action}</p>
+                            <div className="flex items-center text-sm text-muted-foreground">
+                              <Clock className="h-3 w-3 mr-1" />
+                              <span>{event.timestamp}</span>
+                            </div>
+                            <div className="flex items-center text-sm text-muted-foreground">
+                              <User className="h-3 w-3 mr-1" />
+                              <span>{event.user}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center text-sm text-muted-foreground">
-                          <User className="h-3 w-3 mr-1" />
-                          <span>{event.user}</span>
-                        </div>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </TabsContent>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </ResizablePanel>
