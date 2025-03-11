@@ -382,9 +382,12 @@ export default function DashboardOverview() {
                 variant="outline"
                 className="h-20 flex flex-col items-center justify-center"
                 size="sm"
+                asChild
               >
-                <Coins className="h-8 w-8 mb-1" />
-                <span className="text-xs">New Loan</span>
+                <a href="/dashboard/loans/apply">
+                  <Coins className="h-8 w-8 mb-1" />
+                  <span className="text-xs">New Loan</span>
+                </a>
               </Button>
               <Button
                 variant="outline"

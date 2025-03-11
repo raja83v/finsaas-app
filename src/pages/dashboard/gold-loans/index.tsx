@@ -33,9 +33,11 @@ export default function GoldLoans() {
             <Filter className="mr-2 h-4 w-4" />
             Filter
           </Button>
-          <Button size="sm">
-            <Coins className="mr-2 h-4 w-4" />
-            New Loan
+          <Button size="sm" asChild>
+            <a href="/dashboard/loans/apply">
+              <Coins className="mr-2 h-4 w-4" />
+              New Loan
+            </a>
           </Button>
         </div>
       </div>

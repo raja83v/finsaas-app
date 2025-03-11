@@ -7,6 +7,8 @@ import Signup from "./pages/auth/signup";
 import Dashboard from "./pages/dashboard/dashboard";
 import DashboardOverview from "./pages/dashboard/overview";
 import GoldLoans from "./pages/dashboard/gold-loans";
+import GoldLoanApplication from "./pages/dashboard/gold-loans/apply";
+import LoanDetail from "./pages/dashboard/gold-loans/loan-detail";
 import SavingsAccounts from "./pages/dashboard/savings-accounts";
 import Customers from "./pages/dashboard/customers";
 import CustomerDetail from "./pages/dashboard/customers/customer-detail";
@@ -29,6 +31,8 @@ const routes: RouteObject[] = [
     children: [
       { index: true, element: <DashboardOverview /> },
       { path: "loans", element: <GoldLoans /> },
+      { path: "loans/apply", element: <GoldLoanApplication /> },
+      { path: "loans/:id", element: <LoanDetail /> },
       { path: "accounts", element: <SavingsAccounts /> },
       { path: "customers", element: <Customers /> },
       { path: "customers/:id", element: <CustomerDetail /> },
