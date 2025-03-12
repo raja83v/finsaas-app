@@ -1,6 +1,7 @@
 import { Navigate, RouteObject } from "react-router-dom";
 import { Layout } from "./components/layout/layout";
 import { DashboardLayout } from "./components/dashboard/layout";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 import LandingPage from "./pages/landing-page";
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/signup";
@@ -32,25 +33,29 @@ const routes: RouteObject[] = [
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: <ProtectedRoute />,
     children: [
-      { index: true, element: <DashboardOverview /> },
-      { path: "loans", element: <GoldLoans /> },
-      { path: "loans/apply", element: <GoldLoanApplication /> },
-      { path: "loans/:id", element: <LoanDetail /> },
-      { path: "approvals", element: <ApprovalsPage /> },
-      { path: "approvals/:id", element: <ApprovalDetailPage /> },
-      { path: "collateral", element: <CollateralManagement /> },
-      { path: "accounts", element: <SavingsAccounts /> },
-      { path: "customers", element: <Customers /> },
-      { path: "documents", element: <DocumentViewer /> },
-      { path: "documents/signature", element: <SignatureCapture /> },
-      { path: "documents/:id", element: <DocumentViewer /> },
-      { path: "customers/:id", element: <CustomerDetail /> },
-      { path: "reports", element: <Reports /> },
-      { path: "reports/builder", element: <ReportBuilder /> },
-      { path: "metrics", element: <Dashboard /> },
-      // Add other dashboard routes here
+      {
+        element: <DashboardLayout />,
+        children: [
+          { index: true, element: <DashboardOverview /> },
+          { path: "loans", element: <GoldLoans /> },
+          { path: "loans/apply", element: <GoldLoanApplication /> },
+          { path: "loans/:id", element: <LoanDetail /> },
+          { path: "approvals", element: <ApprovalsPage /> },
+          { path: "approvals/:id", element: <ApprovalDetailPage /> },
+          { path: "collateral", element: <CollateralManagement /> },
+          { path: "accounts", element: <SavingsAccounts /> },
+          { path: "customers", element: <Customers /> },
+          { path: "documents", element: <DocumentViewer /> },
+          { path: "documents/signature", element: <SignatureCapture /> },
+          { path: "documents/:id", element: <DocumentViewer /> },
+          { path: "customers/:id", element: <CustomerDetail /> },
+          { path: "reports", element: <Reports /> },
+          { path: "reports/builder", element: <ReportBuilder /> },
+          { path: "metrics", element: <Dashboard /> },
+        ],
+      },
     ],
   },
   {
