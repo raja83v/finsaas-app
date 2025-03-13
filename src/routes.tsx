@@ -14,6 +14,8 @@ import ApprovalsPage from "./pages/dashboard/approvals";
 import ApprovalDetailPage from "./pages/dashboard/approvals/[id]";
 import CollateralManagement from "./pages/dashboard/collateral";
 import SavingsAccounts from "./pages/dashboard/savings-accounts";
+import AccountDetailPage from "./pages/dashboard/savings-accounts/account-detail";
+import NewAccountPage from "./pages/dashboard/savings-accounts/new";
 import Customers from "./pages/dashboard/customers";
 import CustomerDetail from "./pages/dashboard/customers/customer-detail";
 import Reports from "./pages/dashboard/reports";
@@ -46,6 +48,8 @@ const routes: RouteObject[] = [
           { path: "approvals/:id", element: <ApprovalDetailPage /> },
           { path: "collateral", element: <CollateralManagement /> },
           { path: "accounts", element: <SavingsAccounts /> },
+          { path: "accounts/new", element: <NewAccountPage /> },
+          { path: "accounts/:id", element: <AccountDetailPage /> },
           { path: "customers", element: <Customers /> },
           { path: "documents", element: <DocumentViewer /> },
           { path: "documents/signature", element: <SignatureCapture /> },
@@ -54,6 +58,10 @@ const routes: RouteObject[] = [
           { path: "reports", element: <Reports /> },
           { path: "reports/builder", element: <ReportBuilder /> },
           { path: "metrics", element: <Dashboard /> },
+          // Add this before the catchall route
+          ...(import.meta.env.VITE_TEMPO
+            ? [{ path: "tempobook/*", element: <></> }]
+            : []),
         ],
       },
     ],

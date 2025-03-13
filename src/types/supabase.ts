@@ -4,468 +4,652 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[];
+  | Json[]
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
+      account_transactions: {
+        Row: {
+          account_id: string
+          amount: number
+          cheque_number: string | null
+          created_at: string
+          description: string
+          id: string
+          mode: string
+          performed_by: string
+          reference_number: string
+          related_transaction_id: string | null
+          remarks: string | null
+          running_balance: number
+          transaction_date: string
+          transaction_status: string
+          transaction_type: string
+          updated_at: string
+          value_date: string
+        }
+        Insert: {
+          account_id: string
+          amount: number
+          cheque_number?: string | null
+          created_at?: string
+          description: string
+          id?: string
+          mode: string
+          performed_by: string
+          reference_number: string
+          related_transaction_id?: string | null
+          remarks?: string | null
+          running_balance: number
+          transaction_date?: string
+          transaction_status: string
+          transaction_type: string
+          updated_at?: string
+          value_date?: string
+        }
+        Update: {
+          account_id?: string
+          amount?: number
+          cheque_number?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          mode?: string
+          performed_by?: string
+          reference_number?: string
+          related_transaction_id?: string | null
+          remarks?: string | null
+          running_balance?: number
+          transaction_date?: string
+          transaction_status?: string
+          transaction_type?: string
+          updated_at?: string
+          value_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "account_transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "savings_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "account_transactions_related_transaction_id_fkey"
+            columns: ["related_transaction_id"]
+            isOneToOne: false
+            referencedRelation: "account_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       clients: {
         Row: {
-          id: string;
-          created_at: string;
-          name: string;
-          email: string;
-          phone: string;
-          address: string | null;
-          city: string | null;
-          state: string | null;
-          pincode: string | null;
-          logo_url: string | null;
-          status: "active" | "inactive" | "pending";
-          subscription_tier: "free" | "basic" | "premium" | "enterprise";
-          subscription_ends_at: string | null;
-          settings: Json | null;
-        };
+          address: string | null
+          city: string | null
+          created_at: string | null
+          email: string
+          id: string
+          logo_url: string | null
+          name: string
+          phone: string
+          pincode: string | null
+          settings: Json | null
+          state: string | null
+          status: string
+          subscription_ends_at: string | null
+          subscription_tier: string
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          name: string;
-          email: string;
-          phone: string;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          pincode?: string | null;
-          logo_url?: string | null;
-          status?: "active" | "inactive" | "pending";
-          subscription_tier?: "free" | "basic" | "premium" | "enterprise";
-          subscription_ends_at?: string | null;
-          settings?: Json | null;
-        };
+          address?: string | null
+          city?: string | null
+          created_at?: string | null
+          email: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          phone: string
+          pincode?: string | null
+          settings?: Json | null
+          state?: string | null
+          status: string
+          subscription_ends_at?: string | null
+          subscription_tier: string
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          name?: string;
-          email?: string;
-          phone?: string;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          pincode?: string | null;
-          logo_url?: string | null;
-          status?: "active" | "inactive" | "pending";
-          subscription_tier?: "free" | "basic" | "premium" | "enterprise";
-          subscription_ends_at?: string | null;
-          settings?: Json | null;
-        };
-      };
+          address?: string | null
+          city?: string | null
+          created_at?: string | null
+          email?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          phone?: string
+          pincode?: string | null
+          settings?: Json | null
+          state?: string | null
+          status?: string
+          subscription_ends_at?: string | null
+          subscription_tier?: string
+        }
+        Relationships: []
+      }
       customers: {
         Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          first_name: string;
-          last_name: string;
-          email: string;
-          phone: string;
-          address: string | null;
-          city: string | null;
-          state: string | null;
-          pincode: string | null;
-          id_type: string | null;
-          id_number: string | null;
-          date_of_birth: string | null;
-          occupation: string | null;
-          monthly_income: number | null;
-          employer: string | null;
-          bank_name: string | null;
-          account_number: string | null;
-          ifsc_code: string | null;
-          status: "active" | "inactive" | "blacklisted";
-          profile_image_url: string | null;
-          kyc_verified: boolean;
-          notes: string | null;
-        };
+          address: string | null
+          annual_income: number | null
+          city: string | null
+          created_at: string
+          customer_type: string | null
+          date_of_birth: string | null
+          email: string | null
+          first_name: string
+          id: string
+          id_number: string | null
+          id_type: string | null
+          institution_id: string
+          kyc_verified: boolean | null
+          last_name: string
+          occupation: string | null
+          phone: string | null
+          pincode: string | null
+          profile_image_url: string | null
+          risk_category: string | null
+          state: string | null
+          status: string | null
+          updated_at: string
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          first_name: string;
-          last_name: string;
-          email: string;
-          phone: string;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          pincode?: string | null;
-          id_type?: string | null;
-          id_number?: string | null;
-          date_of_birth?: string | null;
-          occupation?: string | null;
-          monthly_income?: number | null;
-          employer?: string | null;
-          bank_name?: string | null;
-          account_number?: string | null;
-          ifsc_code?: string | null;
-          status?: "active" | "inactive" | "blacklisted";
-          profile_image_url?: string | null;
-          kyc_verified?: boolean;
-          notes?: string | null;
-        };
+          address?: string | null
+          annual_income?: number | null
+          city?: string | null
+          created_at?: string
+          customer_type?: string | null
+          date_of_birth?: string | null
+          email?: string | null
+          first_name: string
+          id?: string
+          id_number?: string | null
+          id_type?: string | null
+          institution_id: string
+          kyc_verified?: boolean | null
+          last_name: string
+          occupation?: string | null
+          phone?: string | null
+          pincode?: string | null
+          profile_image_url?: string | null
+          risk_category?: string | null
+          state?: string | null
+          status?: string | null
+          updated_at?: string
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          first_name?: string;
-          last_name?: string;
-          email?: string;
-          phone?: string;
-          address?: string | null;
-          city?: string | null;
-          state?: string | null;
-          pincode?: string | null;
-          id_type?: string | null;
-          id_number?: string | null;
-          date_of_birth?: string | null;
-          occupation?: string | null;
-          monthly_income?: number | null;
-          employer?: string | null;
-          bank_name?: string | null;
-          account_number?: string | null;
-          ifsc_code?: string | null;
-          status?: "active" | "inactive" | "blacklisted";
-          profile_image_url?: string | null;
-          kyc_verified?: boolean;
-          notes?: string | null;
-        };
-      };
-      documents: {
+          address?: string | null
+          annual_income?: number | null
+          city?: string | null
+          created_at?: string
+          customer_type?: string | null
+          date_of_birth?: string | null
+          email?: string | null
+          first_name?: string
+          id?: string
+          id_number?: string | null
+          id_type?: string | null
+          institution_id?: string
+          kyc_verified?: boolean | null
+          last_name?: string
+          occupation?: string | null
+          phone?: string | null
+          pincode?: string | null
+          profile_image_url?: string | null
+          risk_category?: string | null
+          state?: string | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "customers_institution_id_fkey"
+            columns: ["institution_id"]
+            isOneToOne: false
+            referencedRelation: "institutions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      institutions: {
         Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          customer_id: string | null;
-          loan_id: string | null;
-          name: string;
-          type: string;
-          file_url: string;
-          file_type: string;
-          file_size: number;
-          status: "pending" | "verified" | "rejected";
-          verified_by: string | null;
-          verified_at: string | null;
-          notes: string | null;
-        };
+          address: string | null
+          business_type: string | null
+          city: string | null
+          contact_person: string | null
+          created_at: string | null
+          email: string | null
+          id: string
+          logo_url: string | null
+          name: string
+          number_of_branches: number | null
+          phone: string | null
+          pincode: string | null
+          registration_number: string | null
+          state: string | null
+          updated_at: string | null
+          years_in_business: number | null
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          customer_id?: string | null;
-          loan_id?: string | null;
-          name: string;
-          type: string;
-          file_url: string;
-          file_type: string;
-          file_size: number;
-          status?: "pending" | "verified" | "rejected";
-          verified_by?: string | null;
-          verified_at?: string | null;
-          notes?: string | null;
-        };
+          address?: string | null
+          business_type?: string | null
+          city?: string | null
+          contact_person?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          logo_url?: string | null
+          name: string
+          number_of_branches?: number | null
+          phone?: string | null
+          pincode?: string | null
+          registration_number?: string | null
+          state?: string | null
+          updated_at?: string | null
+          years_in_business?: number | null
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          customer_id?: string | null;
-          loan_id?: string | null;
-          name?: string;
-          type?: string;
-          file_url?: string;
-          file_type?: string;
-          file_size?: number;
-          status?: "pending" | "verified" | "rejected";
-          verified_by?: string | null;
-          verified_at?: string | null;
-          notes?: string | null;
-        };
-      };
-      gold_items: {
+          address?: string | null
+          business_type?: string | null
+          city?: string | null
+          contact_person?: string | null
+          created_at?: string | null
+          email?: string | null
+          id?: string
+          logo_url?: string | null
+          name?: string
+          number_of_branches?: number | null
+          phone?: string | null
+          pincode?: string | null
+          registration_number?: string | null
+          state?: string | null
+          updated_at?: string | null
+          years_in_business?: number | null
+        }
+        Relationships: []
+      }
+      interest_calculations: {
         Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          loan_id: string;
-          customer_id: string;
-          type: string;
-          description: string;
-          weight_grams: number;
-          purity: number;
-          value: number;
-          item_code: string;
-          status: "in_custody" | "released" | "in_transit";
-          location: string | null;
-          image_url: string | null;
-          notes: string | null;
-        };
+          account_id: string
+          calculated_amount: number
+          calculation_date: string
+          created_at: string
+          daily_balance: number
+          id: string
+          interest_days: number
+          interest_rate: number
+          is_posted: boolean
+          posted_date: string | null
+          posted_transaction_id: string | null
+          updated_at: string
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          loan_id: string;
-          customer_id: string;
-          type: string;
-          description: string;
-          weight_grams: number;
-          purity: number;
-          value: number;
-          item_code: string;
-          status?: "in_custody" | "released" | "in_transit";
-          location?: string | null;
-          image_url?: string | null;
-          notes?: string | null;
-        };
+          account_id: string
+          calculated_amount: number
+          calculation_date?: string
+          created_at?: string
+          daily_balance: number
+          id?: string
+          interest_days: number
+          interest_rate: number
+          is_posted?: boolean
+          posted_date?: string | null
+          posted_transaction_id?: string | null
+          updated_at?: string
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          loan_id?: string;
-          customer_id?: string;
-          type?: string;
-          description?: string;
-          weight_grams?: number;
-          purity?: number;
-          value?: number;
-          item_code?: string;
-          status?: "in_custody" | "released" | "in_transit";
-          location?: string | null;
-          image_url?: string | null;
-          notes?: string | null;
-        };
-      };
-      loans: {
+          account_id?: string
+          calculated_amount?: number
+          calculation_date?: string
+          created_at?: string
+          daily_balance?: number
+          id?: string
+          interest_days?: number
+          interest_rate?: number
+          is_posted?: boolean
+          posted_date?: string | null
+          posted_transaction_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "interest_calculations_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "savings_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "interest_calculations_posted_transaction_id_fkey"
+            columns: ["posted_transaction_id"]
+            isOneToOne: false
+            referencedRelation: "account_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
         Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          customer_id: string;
-          loan_type: string;
-          principal_amount: number;
-          interest_rate: number;
-          loan_term_months: number;
-          emi_amount: number;
-          disbursement_date: string | null;
-          maturity_date: string | null;
-          ltv_ratio: number;
-          processing_fee: number;
-          total_interest: number;
-          total_repayment: number;
-          collateral_value: number;
-          repayment_frequency:
-            | "monthly"
-            | "quarterly"
-            | "semi_annually"
-            | "annually";
-          status:
-            | "pending"
-            | "approved"
-            | "rejected"
-            | "active"
-            | "closed"
-            | "defaulted";
-          assigned_to: string | null;
-          approved_by: string | null;
-          approved_at: string | null;
-          notes: string | null;
-        };
+          created_at: string | null
+          full_name: string | null
+          has_completed_onboarding: boolean | null
+          id: string
+          institution_id: string | null
+          updated_at: string | null
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          customer_id: string;
-          loan_type: string;
-          principal_amount: number;
-          interest_rate: number;
-          loan_term_months: number;
-          emi_amount: number;
-          disbursement_date?: string | null;
-          maturity_date?: string | null;
-          ltv_ratio: number;
-          processing_fee: number;
-          total_interest: number;
-          total_repayment: number;
-          collateral_value: number;
-          repayment_frequency?:
-            | "monthly"
-            | "quarterly"
-            | "semi_annually"
-            | "annually";
-          status?:
-            | "pending"
-            | "approved"
-            | "rejected"
-            | "active"
-            | "closed"
-            | "defaulted";
-          assigned_to?: string | null;
-          approved_by?: string | null;
-          approved_at?: string | null;
-          notes?: string | null;
-        };
+          created_at?: string | null
+          full_name?: string | null
+          has_completed_onboarding?: boolean | null
+          id: string
+          institution_id?: string | null
+          updated_at?: string | null
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          customer_id?: string;
-          loan_type?: string;
-          principal_amount?: number;
-          interest_rate?: number;
-          loan_term_months?: number;
-          emi_amount?: number;
-          disbursement_date?: string | null;
-          maturity_date?: string | null;
-          ltv_ratio?: number;
-          processing_fee?: number;
-          total_interest?: number;
-          total_repayment?: number;
-          collateral_value?: number;
-          repayment_frequency?:
-            | "monthly"
-            | "quarterly"
-            | "semi_annually"
-            | "annually";
-          status?:
-            | "pending"
-            | "approved"
-            | "rejected"
-            | "active"
-            | "closed"
-            | "defaulted";
-          assigned_to?: string | null;
-          approved_by?: string | null;
-          approved_at?: string | null;
-          notes?: string | null;
-        };
-      };
-      payments: {
+          created_at?: string | null
+          full_name?: string | null
+          has_completed_onboarding?: boolean | null
+          id?: string
+          institution_id?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_institution_id_fkey"
+            columns: ["institution_id"]
+            isOneToOne: false
+            referencedRelation: "institutions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      savings_accounts: {
         Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          loan_id: string;
-          customer_id: string;
-          amount: number;
-          payment_date: string;
-          payment_method: string;
-          transaction_id: string | null;
-          status: "pending" | "completed" | "failed";
-          notes: string | null;
-        };
+          account_number: string
+          account_type: string
+          alert_preferences: Json
+          approval_status: string
+          approved_by: string | null
+          approved_date: string | null
+          available_balance: number
+          balance: number
+          created_at: string
+          customer_id: string
+          id: string
+          institution_id: string
+          interest_calculation_method: string
+          interest_posting_frequency: string
+          interest_rate: number
+          is_tax_applicable: boolean
+          last_interest_calculated_date: string | null
+          last_interest_posted_date: string | null
+          nomination_details: Json | null
+          opening_date: string
+          statement_delivery_method: string
+          statement_frequency: string
+          status: string
+          updated_at: string
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          loan_id: string;
-          customer_id: string;
-          amount: number;
-          payment_date: string;
-          payment_method: string;
-          transaction_id?: string | null;
-          status?: "pending" | "completed" | "failed";
-          notes?: string | null;
-        };
+          account_number: string
+          account_type: string
+          alert_preferences?: Json
+          approval_status: string
+          approved_by?: string | null
+          approved_date?: string | null
+          available_balance?: number
+          balance?: number
+          created_at?: string
+          customer_id: string
+          id?: string
+          institution_id: string
+          interest_calculation_method: string
+          interest_posting_frequency: string
+          interest_rate: number
+          is_tax_applicable?: boolean
+          last_interest_calculated_date?: string | null
+          last_interest_posted_date?: string | null
+          nomination_details?: Json | null
+          opening_date?: string
+          statement_delivery_method: string
+          statement_frequency: string
+          status: string
+          updated_at?: string
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          loan_id?: string;
-          customer_id?: string;
-          amount?: number;
-          payment_date?: string;
-          payment_method?: string;
-          transaction_id?: string | null;
-          status?: "pending" | "completed" | "failed";
-          notes?: string | null;
-        };
-      };
-      comments: {
+          account_number?: string
+          account_type?: string
+          alert_preferences?: Json
+          approval_status?: string
+          approved_by?: string | null
+          approved_date?: string | null
+          available_balance?: number
+          balance?: number
+          created_at?: string
+          customer_id?: string
+          id?: string
+          institution_id?: string
+          interest_calculation_method?: string
+          interest_posting_frequency?: string
+          interest_rate?: number
+          is_tax_applicable?: boolean
+          last_interest_calculated_date?: string | null
+          last_interest_posted_date?: string | null
+          nomination_details?: Json | null
+          opening_date?: string
+          statement_delivery_method?: string
+          statement_frequency?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "savings_accounts_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "savings_accounts_institution_id_fkey"
+            columns: ["institution_id"]
+            isOneToOne: false
+            referencedRelation: "institutions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      standing_instructions: {
         Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          loan_id: string | null;
-          customer_id: string | null;
-          user_id: string;
-          text: string;
-          attachments: Json | null;
-        };
+          account_id: string
+          amount: number
+          beneficiary_details: Json
+          created_at: string
+          end_date: string | null
+          frequency: string
+          id: string
+          last_execution_date: string | null
+          last_execution_status: string | null
+          last_failure_reason: string | null
+          next_execution_date: string
+          si_type: string
+          start_date: string
+          status: string
+          updated_at: string
+        }
         Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          loan_id?: string | null;
-          customer_id?: string | null;
-          user_id: string;
-          text: string;
-          attachments?: Json | null;
-        };
+          account_id: string
+          amount: number
+          beneficiary_details: Json
+          created_at?: string
+          end_date?: string | null
+          frequency: string
+          id?: string
+          last_execution_date?: string | null
+          last_execution_status?: string | null
+          last_failure_reason?: string | null
+          next_execution_date: string
+          si_type: string
+          start_date: string
+          status: string
+          updated_at?: string
+        }
         Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          loan_id?: string | null;
-          customer_id?: string | null;
-          user_id?: string;
-          text?: string;
-          attachments?: Json | null;
-        };
-      };
-      users: {
-        Row: {
-          id: string;
-          created_at: string;
-          client_id: string;
-          email: string;
-          first_name: string;
-          last_name: string;
-          role: "admin" | "manager" | "loan_officer" | "staff";
-          avatar_url: string | null;
-          status: "active" | "inactive";
-          last_login: string | null;
-        };
-        Insert: {
-          id?: string;
-          created_at?: string;
-          client_id: string;
-          email: string;
-          first_name: string;
-          last_name: string;
-          role?: "admin" | "manager" | "loan_officer" | "staff";
-          avatar_url?: string | null;
-          status?: "active" | "inactive";
-          last_login?: string | null;
-        };
-        Update: {
-          id?: string;
-          created_at?: string;
-          client_id?: string;
-          email?: string;
-          first_name?: string;
-          last_name?: string;
-          role?: "admin" | "manager" | "loan_officer" | "staff";
-          avatar_url?: string | null;
-          status?: "active" | "inactive";
-          last_login?: string | null;
-        };
-      };
-    };
+          account_id?: string
+          amount?: number
+          beneficiary_details?: Json
+          created_at?: string
+          end_date?: string | null
+          frequency?: string
+          id?: string
+          last_execution_date?: string | null
+          last_execution_status?: string | null
+          last_failure_reason?: string | null
+          next_execution_date?: string
+          si_type?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "standing_instructions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "savings_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      calculate_interest: {
+        Args: {
+          p_account_id: string
+          p_calculation_date: string
+        }
+        Returns: Json
+      }
+      create_account_transaction: {
+        Args: {
+          transaction_data: Json
+          new_balance: number
+        }
+        Returns: Json
+      }
+    }
     Enums: {
-      [_ in never]: never;
-    };
-  };
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
 }
+
+type PublicSchema = Database[Extract<keyof Database, "public">]
+
+export type Tables<
+  PublicTableNameOrOptions extends
+    | keyof (PublicSchema["Tables"] & PublicSchema["Views"])
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+        Database[PublicTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
+      Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  PublicTableNameOrOptions extends
+    | keyof PublicSchema["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  PublicEnumNameOrOptions extends
+    | keyof PublicSchema["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof PublicSchema["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof Database
+  }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never

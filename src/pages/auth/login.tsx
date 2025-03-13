@@ -1,22 +1,44 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { APP_NAME } from "@/lib/constants";
+import { useAuth } from "@/hooks/useAuth";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      await login({ email, password });
+      toast({
+        title: "Login successful",
+        description: "You have been logged in successfully.",
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      toast({
+        title: "Login failed",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Please check your credentials and try again.",
+        variant: "destructive",
+      });
       setIsLoading(false);
-    }, 1000);
+    }
   }
 
   return (
@@ -76,6 +98,8 @@ export default function Login() {
                   autoCorrect="off"
                   disabled={isLoading}
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-2">
@@ -95,6 +119,8 @@ export default function Login() {
                   autoComplete="current-password"
                   disabled={isLoading}
                   required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="flex items-center space-x-2">
